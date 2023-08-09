@@ -1,0 +1,15 @@
+<ion-header> </ion-header>
+
+<ion-content>
+  <app-search-select
+    [data]="users"
+    label="Select Users"
+    title="Search Users"
+    itemTextField="username"
+    [multiple]="true"
+    (selectedChanged)="selectedChanged($event)"
+    (searchChanged)="filter($event)"
+    [isLoading]="isLoading"
+    [initialSelected]="initialSelected"
+  ></app-search-select>
+</ion-content>

@@ -1,0 +1,86 @@
+<ion-item (click)="open()" class="inputBox">
+  <ion-label>{{ label }}</ion-label>
+  <div *ngIf="selected.length" class="inputItems">
+    <span *ngFor="let item of selected; let last = last"
+      >{{ leaf(item) }}{{ last ? "" : ", " }}</span
+    >
+  </div>
+
+  <ion-icon name="chevron-down-outline"></ion-icon>
+  <ion-modal [isOpen]="isOpen" #userModal>
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button fill="clear" color="primary" (click)="cancel()"
+              >Cancel</ion-button
+            >
+          </ion-buttons>
+          <ion-title>{{ title }}</ion-title>
+        </ion-toolbar>
+        <ion-toolbar>
+          <ion-searchbar
+            #q
+            (keyup)="filter(q.value)"
+            (ionClear)="resetFilter()"
+          ></ion-searchbar>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list *ngIf="multiple">
+          <ion-item *ngIf="filtered.length < 1 && !isLoading"
+            >No data found.</ion-item
+          >
+          <ion-item *ngIf="isLoading"
+            ><ion-progress-bar type="indeterminate"></ion-progress-bar>
+          </ion-item>
+          <ion-item class="listItem" *ngFor="let item of filtered">
+            <ion-checkbox
+              class="checkBox"
+              slot="start"
+              justify="start"
+              labelPlacement="end"
+              [(ngModel)]="item.selected"
+              (ionChange)="itemSelected(item)"
+              >{{ leaf(item) }}</ion-checkbox
+            >
+          </ion-item>
+        </ion-list>
+        <ion-radio-group
+          *ngIf="!multiple"
+          [(ngModel)]="selected[0]"
+          (ionChange)="itemSelectedSingle($event)"
+        >
+          <ion-list>
+            <ion-item *ngIf="filtered.length < 1 && !isLoading"
+              >No data found.</ion-item
+            >
+            <ion-item *ngIf="isLoading"
+              ><ion-progress-bar type="indeterminate"></ion-progress-bar>
+            </ion-item>
+            <ion-item class="listItem" *ngFor="let item of filtered">
+              <ion-radio
+                class="checkBox"
+                slot="start"
+                justify="start"
+                labelPlacement="end"
+                [value]="item"
+                >{{ leaf(item) }}</ion-radio
+              >
+            </ion-item>
+          </ion-list>
+        </ion-radio-group>
+      </ion-content>
+      <ion-footer>
+        <ion-row>
+          <ion-col>
+            <ion-button expand="full" (click)="cancel()">Cancel</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button expand="full" (click)="confirm()">OK</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
+</ion-item>
