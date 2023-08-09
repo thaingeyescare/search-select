@@ -1,32 +1,28 @@
 <ion-header> </ion-header>
 
 <ion-content>
-  <ion-item>
-    <h1>Multiple Select</h1>
-    <app-search-select
-      [data]="users"
-      label="Select Users"
-      title="Search Users"
-      itemTextField="username"
-      [multiple]="true"
-      (selectedChanged)="selectedChanged($event)"
-      (searchChanged)="filter($event)"
-      [isLoading]="isLoading"
-      [initialSelected]="initialSelected"
-    ></app-search-select>
-  </ion-item>
-  <ion-item>
-    <h1>Radio Select</h1>
-    <app-search-select
-      [data]="users"
-      label="Select User"
-      title="Search User"
-      itemTextField="username"
-      [multiple]="false"
-      (selectedChanged)="selectedChanged($event)"
-      (searchChanged)="filter($event)"
-      [isLoading]="isLoading"
-      [initialSelected]="initialSelected"
-    ></app-search-select>
-  </ion-item>
+  <h1>Multiple Select</h1>
+  <app-search-select
+    [data]="users"
+    label="Select Users"
+    title="Search Users"
+    itemTextField="username"
+    [multiple]="true"
+    (selectedChanged)="selectedChanged($event)"
+    (searchChanged)="filter($event)"
+    [isLoading]="isLoading"
+    [initialSelected]="initialSelectedCheckboxes"
+  ></app-search-select>
+  <h1>Single/Radio Select</h1>
+  <app-search-select
+    [data]="users"
+    label="Select User"
+    title="Search User"
+    itemTextField="username"
+    [multiple]="false"
+    (selectedChanged)="selectedChanged($event)"
+    (searchChanged)="filter($event)"
+    [isLoading]="isLoading"
+    [initialSelected]="initialSelected"
+  ></app-search-select>
 </ion-content>
